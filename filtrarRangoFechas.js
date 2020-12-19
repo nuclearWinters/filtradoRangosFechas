@@ -14,13 +14,12 @@ const calendario = [
 
 const rangosPendientes = calendario.filter((CalendarNext) => {
   const shouldKeep = !horarios.reduce((FichadoCurr, FichadoNext) => {
-    const isEndAfterStart = moment(FichadoNext.end_time, "HH:mm").isSameOrAfter(
+    const isEndAfterStart = moment(FichadoNext.end_time, "HH:mm").isAfter(
       moment(CalendarNext.start_hour, "HH:mm:ss")
     );
-    const isStartBeforeEnd = moment(
-      FichadoNext.start_time,
-      "HH:mm"
-    ).isSameOrBefore(moment(CalendarNext.end_hour, "HH:mm:ss"));
+    const isStartBeforeEnd = moment(FichadoNext.start_time, "HH:mm").isBefore(
+      moment(CalendarNext.end_hour, "HH:mm:ss")
+    );
     const isInRange = isEndAfterStart && isStartBeforeEnd;
     console.log(
       `${FichadoNext.start_time} ${FichadoNext.end_time} is in range of ${CalendarNext.start_hour} ${CalendarNext.end_hour}`,
